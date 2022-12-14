@@ -32,7 +32,7 @@ export default function SignUp() {
         <div className="w-4/5 h-full flex justify-center items-center flex-col rounded-xl bg-white my-6 ">
           <h1 className="text-3xl font-bold mb-5 p-3 text-center">Cadastro</h1>
           <a href="/" className="flex justify-end exitPosition">
-            <img src="../../assets/exit.svg" alt="exit icon" />
+            <img src="/exit.svg" alt="exit icon" />
           </a>
 
           <form
