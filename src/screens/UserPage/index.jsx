@@ -1,48 +1,57 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState, useEffect } from "react";
 
 import { CommitButton } from "../../components/button.jsx";
 import { LabelForm } from "../../components/label.jsx";
 import { validationSchema } from "../../validators/index.jsx";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function UserPage() {
+export default function SignUp() {
+  // const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm({ resolver: yupResolver(validationSchema) });
 
-  const [getUserInfo, setUserInfo] = useState([]);
+  const { state } = useLocation();
 
-  useEffect(() => {
-    const getUserInfo = JSON.parse(localStorage.getItem("userList"));
-    console.log(getUserInfo);
-    if (getUserInfo) {
-      setUserInfo(getUserInfo);
-    }
-  }, []);
+  const onSubmit = (data) => {
+    console.log(data, state);
+    const userCollection = JSON.parse(localStorage.getItem("userList") || "[]");
+    userCollection[state.index] = data;
+    localStorage.setItem("userList", JSON.stringify(userCollection));
+    window.alert("Usuário alterado com Sucesso!");
+  };
+
+  const deleteUser = () => {
+    const userCollection = JSON.parse(localStorage.getItem("userList") || "[]");
+    console.log(state);
+    userCollection.splice(state.index, 1);
+    localStorage.setItem("userList", JSON.stringify(userCollection));
+    navigate("/");
+  };
 
   return (
     <>
       <div className="w-full h-full items-center flex justify-center bg-primaryColor ">
         <div className="w-4/5 h-full flex justify-center items-center flex-col rounded-xl bg-white my-6 ">
-          <h1 className="text-3xl font-bold mb-5 p-3 text-center">
-            Olá {getUserInfo.name}!
-          </h1>
-          <a href="/" className="flex justify-end exitPosition">
-            <img src="/src/assets/exit.svg" alt="exit icon" />
-          </a>
+          <h1 className="text-3xl font-bold mb-5 p-3 text-center">Cadastro</h1>
+          <div className="h-8 flex flex-col justify-between">
+            <a href="/" className="flex justify-end exitPosition">
+              <img src="/exit.svg" alt="exit icon" />
+            </a>
+          </div>
 
           <form
-            onSubmit={handleSubmit()}
+            onSubmit={handleSubmit(onSubmit)}
             className="w-full h-full items-center flex flex-col"
           >
             <LabelForm label="Nome:" />
             <input
               className="styleInput"
               placeholder="Seu Nome"
-              value={getUserInfo.name}
+              defaultValue={state.name}
               type="text"
               {...register("name", { required: true })}
             />
@@ -51,7 +60,7 @@ export default function UserPage() {
             <input
               className="styleInput"
               placeholder="exemple@email.com"
-              value={getUserInfo.email}
+              defaultValue={state.email}
               type="email"
               {...register("email", { required: true })}
             />
@@ -60,23 +69,23 @@ export default function UserPage() {
             <input
               className="styleInput"
               placeholder="Seu País"
-              value={getUserInfo.country}
+              defaultValue={state.country}
               type="text"
               {...register("country")}
             />
             <LabelForm label="Estado:" />
             <input
               className="styleInput"
+              defaultValue={state.state}
               placeholder="Seu Estado"
-              value={getUserInfo.state}
               type="text"
               {...register("state")}
             />
             <LabelForm label="Cidade:" />
             <input
               className="styleInput"
+              defaultValue={state.city}
               placeholder="Sua cidade:"
-              value={getUserInfo.city}
               type="text"
               {...register("city", { required: true })}
             />
@@ -84,9 +93,9 @@ export default function UserPage() {
             <LabelForm label="CEP:" />
             <input
               mask={"00000-000"}
+              defaultValue={state.cep}
               className="styleInput"
               placeholder="Cep"
-              value={getUserInfo.cep}
               type="text"
               {...register("cep", { required: true })}
             />
@@ -94,8 +103,8 @@ export default function UserPage() {
             <LabelForm label="Rua:" />
             <input
               className="styleInput"
+              defaultValue={state.street}
               placeholder="Rua:"
-              value={getUserInfo.street}
               type="text"
               {...register("street", { required: true })}
             />
@@ -103,8 +112,8 @@ export default function UserPage() {
             <LabelForm label="Complemento:" />
             <input
               className="styleInput"
+              defaultValue={state.complement}
               placeholder="Complemento:"
-              value={getUserInfo.complement}
               type="text"
               {...register("complement")}
             />
@@ -112,8 +121,8 @@ export default function UserPage() {
             <input
               mask={"000.000.000-00"}
               className="styleInput"
+              defaultValue={state.cpf}
               placeholder="Seu CPF:"
-              value={getUserInfo.cpf}
               type="text"
               {...register("cpf", {
                 required: true,
@@ -123,8 +132,8 @@ export default function UserPage() {
             <LabelForm label="PIS:" />
             <input
               className="styleInput"
+              defaultValue={state.pis}
               placeholder="Seu numero PIS"
-              value={getUserInfo.pis}
               type="text"
               {...register("pis", { required: true })}
             />
@@ -132,18 +141,21 @@ export default function UserPage() {
             <LabelForm label="Senha:" />
             <input
               className="styleInput"
+              defaultValue={state.password}
               placeholder="Sua Senha"
-              value={getUserInfo.password}
               type="password"
               {...register("password", { required: true })}
             />
             <span className="text-red-600">{errors.password?.message}</span>
-            <CommitButton
-              //   onClick={Object.keys(errors).length === 0 ?  : ""}
-              text="Finalizar Cadastro"
-              type="submit"
-            />
+            <CommitButton text="Finalizar Cadastro" type="submit" />
           </form>
+          <a onClick={deleteUser} className="flex justify-end">
+            <img
+              src="/delete.svg"
+              className="deletePosition"
+              alt="delete icon"
+            />
+          </a>
         </div>
       </div>
     </>

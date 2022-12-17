@@ -28,6 +28,12 @@ body {
   padding: 12px;
   position: absolute;
 }
+.deletePosition {
+  position: absolute;
+  left: 84%;
+  top: 15%;
+  height: 30px;
+}
 
 @media (max-width: 768px) {
   .exitPosition {

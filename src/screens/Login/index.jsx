@@ -1,4 +1,5 @@
 import { CommitButton } from "../../components/button.jsx";
+
 import React, { useState } from "react";
 import "../../global.css";
 
@@ -11,30 +12,29 @@ export default function Login() {
     userId: "",
     userPassword: "",
   });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
 
   const handleAllValues = (event) => {
     setAllValues({ ...allValues, [event.target.name]: event.target.value });
   };
 
-  const loginWithLocalStorage = () => {
+  const authWithLocalStorage = () => {
     const userData = JSON.parse(localStorage.getItem("userList"));
 
-    for (var i = 0; i < userData.length; i++) {
-      if (
-        (allValues.userId === userData[i].cpf ||
-          allValues.userId === userData[i].pis) &&
-        allValues.userPassword === userData[i].password
-      ) {
-        navigate(`/userpage`);
-        break;
-      } else {
-        window.alert("Dados Inválidos");
-        break;
-      }
-    }
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
+    const userAuthenticated = userData.findIndex(
+      (item) =>
+        (allValues.userId === item.cpf || allValues.userId === item.pis) &&
+        item.password === allValues.userPassword
+    );
+
+    console.log(userAuthenticated);
+    userAuthenticated != -1
+      ? navigate(`/userpage`, {
+          state: { ...userData[userAuthenticated], index: userAuthenticated },
+        })
+      : window.alert("Dados Inválidos");
   };
 
   return (
@@ -77,7 +77,7 @@ export default function Login() {
             <CommitButton
               text="Login"
               type="submit"
-              onClick={loginWithLocalStorage}
+              onClick={authWithLocalStorage}
             />
             <p className="text-center">
               Não possui uma conta? <br />{" "}

@@ -18,3 +18,12 @@ export const validationSchema = yup
       .required("A Senha é Obrigatória"),
   })
   .required();
+
+export const validationSchemaLogin = yup
+  .object({
+    userId: yup.string().required("CPF ou PIS Obrigatórios"),
+    userPassword: yup
+      .string()
+      .required("Por favor, insira sua senha de entrada."),
+  })
+  .required();
