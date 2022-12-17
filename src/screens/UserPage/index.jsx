@@ -7,7 +7,7 @@ import { validationSchema } from "../../validators/index.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SignUp() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
