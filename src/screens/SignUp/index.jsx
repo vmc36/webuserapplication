@@ -4,8 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CommitButton } from "../../components/button.jsx";
 import { LabelForm } from "../../components/label.jsx";
 import { validationSchema } from "../../validators/index.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -24,7 +26,8 @@ export default function SignUp() {
     const userCollection = JSON.parse(localStorage.getItem("userList") || "[]");
     userCollection.push(data);
     localStorage.setItem("userList", JSON.stringify(userCollection));
-    window.alert("Usuário cadastrado com sucesso, verifique o localstorage");
+    window.alert("Usuário cadastrado com sucesso, verifique o localstorage.");
+    navigate("/");
   };
 
   return (
@@ -81,7 +84,7 @@ export default function SignUp() {
             <LabelForm label="CEP:" />
             <input
               className="styleInput"
-              placeholder="Cep"
+              placeholder="Cep:"
               type="text"
               {...register("cep", { required: true })}
             />

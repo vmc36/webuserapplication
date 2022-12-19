@@ -2,7 +2,7 @@
 
 ## O Projeto.
 
-Trata - se de um projeto para criação de cadastro de usuário, gravando as informações no LocalStorage. O Login pode ser efetuado e os dados do usuário alterado ou excluído, conforme a necessidade.
+Trata - se de um projeto para criação de cadastro de usuário, gravando as informações no LocalStorage. O Login pode ser efetuado e os dados do usuário alterados ou excluídos, conforme a necessidade.
 
 ## Ferramentas Utilizadas.
 

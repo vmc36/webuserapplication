@@ -44,7 +44,11 @@ body {
 @media (max-width: 414px) {
   .exitPosition {
     left: 75%;
-    top: 6%;
+    top: 20%;
+  }
+  .deletePosition {
+    left: 77%;
+    top: 30%;
   }
 }
 @media (max-width: 360px) {

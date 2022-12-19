@@ -7,7 +7,7 @@ import { validationSchema } from "../../validators/index.jsx";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function SignUp() {
+export default function UserPage() {
   const navigate = useNavigate();
   const {
     register,
@@ -21,7 +21,7 @@ export default function SignUp() {
     const userCollection = JSON.parse(localStorage.getItem("userList") || "[]");
     userCollection[state.index] = data;
     localStorage.setItem("userList", JSON.stringify(userCollection));
-    window.alert("Usuário alterado com Sucesso!");
+    window.alert("Informações alteradas com Sucesso!");
   };
 
   const deleteUser = () => {
@@ -39,7 +39,7 @@ export default function SignUp() {
     <>
       <div className="w-full h-full items-center flex justify-center bg-primaryColor ">
         <div className="w-4/5 h-full flex justify-center items-center flex-col rounded-xl bg-white my-6 ">
-          <h1 className="text-3xl font-bold mb-5 p-3 text-center">
+          <h1 className="text-3xl font-bold mb-5 p-3 text-center sm:text-xl sm:w-9/12 sm:mb-0">
             Olá {state.name}!
           </h1>
           <div className="h-8 flex flex-col justify-between">
