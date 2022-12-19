@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CommitButton } from "../../components/button.jsx";
 import { LabelForm } from "../../components/label.jsx";
 import { validationSchema } from "../../validators/index.jsx";
+
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function SignUp() {
@@ -17,7 +18,6 @@ export default function SignUp() {
   const { state } = useLocation();
 
   const onSubmit = (data) => {
-    console.log(data, state);
     const userCollection = JSON.parse(localStorage.getItem("userList") || "[]");
     userCollection[state.index] = data;
     localStorage.setItem("userList", JSON.stringify(userCollection));
@@ -25,18 +25,23 @@ export default function SignUp() {
   };
 
   const deleteUser = () => {
-    const userCollection = JSON.parse(localStorage.getItem("userList") || "[]");
-    console.log(state);
-    userCollection.splice(state.index, 1);
-    localStorage.setItem("userList", JSON.stringify(userCollection));
-    navigate("/");
+    if (window.confirm("Você realmente deseja excluir suas informações?")) {
+      const userCollection = JSON.parse(
+        localStorage.getItem("userList") || "[]"
+      );
+      userCollection.splice(state.index, 1);
+      localStorage.setItem("userList", JSON.stringify(userCollection));
+      navigate("/");
+    }
   };
 
   return (
     <>
       <div className="w-full h-full items-center flex justify-center bg-primaryColor ">
         <div className="w-4/5 h-full flex justify-center items-center flex-col rounded-xl bg-white my-6 ">
-          <h1 className="text-3xl font-bold mb-5 p-3 text-center">Cadastro</h1>
+          <h1 className="text-3xl font-bold mb-5 p-3 text-center">
+            Olá {state.name}!
+          </h1>
           <div className="h-8 flex flex-col justify-between">
             <a href="/" className="flex justify-end exitPosition">
               <img src="/exit.svg" alt="exit icon" />
@@ -92,7 +97,6 @@ export default function SignUp() {
             <span className="text-red-600">{errors.city?.message}</span>
             <LabelForm label="CEP:" />
             <input
-              mask={"00000-000"}
               defaultValue={state.cep}
               className="styleInput"
               placeholder="Cep"
@@ -119,7 +123,6 @@ export default function SignUp() {
             />
             <LabelForm label="CPF:" />
             <input
-              mask={"000.000.000-00"}
               className="styleInput"
               defaultValue={state.cpf}
               placeholder="Seu CPF:"
@@ -147,9 +150,9 @@ export default function SignUp() {
               {...register("password", { required: true })}
             />
             <span className="text-red-600">{errors.password?.message}</span>
-            <CommitButton text="Finalizar Cadastro" type="submit" />
+            <CommitButton text="Atualizar Cadastro" type="submit" />
           </form>
-          <a onClick={deleteUser} className="flex justify-end">
+          <a onClick={deleteUser} className="flex cursor-pointer justify-end">
             <img
               src="/delete.svg"
               className="deletePosition"

@@ -24,6 +24,7 @@ export default function SignUp() {
     const userCollection = JSON.parse(localStorage.getItem("userList") || "[]");
     userCollection.push(data);
     localStorage.setItem("userList", JSON.stringify(userCollection));
+    window.alert("Usuário cadastrado com sucesso, verifique o localstorage");
   };
 
   return (
@@ -79,7 +80,6 @@ export default function SignUp() {
             <span className="text-red-600">{errors.city?.message}</span>
             <LabelForm label="CEP:" />
             <input
-              mask={"00000-000"}
               className="styleInput"
               placeholder="Cep"
               type="text"
@@ -103,7 +103,6 @@ export default function SignUp() {
             />
             <LabelForm label="CPF:" />
             <input
-              mask={"000.000.000-00"}
               className="styleInput"
               placeholder="Seu CPF:"
               type="text"
@@ -129,7 +128,7 @@ export default function SignUp() {
             />
             <span className="text-red-600">{errors.password?.message}</span>
             <CommitButton
-              onClick={Object.keys(errors).length === 0 ? handleReset : ""}
+              onClick={Object.keys(errors).length === 0 ? handleReset : null}
               text="Finalizar Cadastro"
               type="submit"
             />

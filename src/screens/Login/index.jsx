@@ -1,21 +1,16 @@
-import { CommitButton } from "../../components/button.jsx";
-
-import React, { useState } from "react";
+import { CommitButton } from "../../components/button";
+import { useState } from "react";
 import "../../global.css";
-
+import { handleSubmit } from "../../components/preventForm";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
 
   const [allValues, setAllValues] = useState({
-    userId: "",
+    userLogin: "",
     userPassword: "",
   });
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-
   const handleAllValues = (event) => {
     setAllValues({ ...allValues, [event.target.name]: event.target.value });
   };
@@ -25,16 +20,16 @@ export default function Login() {
 
     const userAuthenticated = userData.findIndex(
       (item) =>
-        (allValues.userId === item.cpf || allValues.userId === item.pis) &&
+        (allValues.userLogin === item.cpf ||
+          allValues.userLogin === item.email) &&
         item.password === allValues.userPassword
     );
 
-    console.log(userAuthenticated);
     userAuthenticated != -1
       ? navigate(`/userpage`, {
           state: { ...userData[userAuthenticated], index: userAuthenticated },
         })
-      : window.alert("Dados Inválidos");
+      : window.alert("Dados Inválidos, verifique suas credenciais.");
   };
 
   return (
@@ -50,17 +45,17 @@ export default function Login() {
             </h1>
 
             <div className="w-full flex justify-center ">
-              <label className="rounded" name="cpfis" id="cpfis">
+              <label className="rounded" name="email" id="email">
                 {" "}
               </label>
               <input
                 className="styleInput"
-                type="text"
-                placeholder="Insira seu CPF ou PIS"
+                placeholder="Insira seu email ou CPF:"
                 onChange={handleAllValues}
-                name="userId"
+                name="userLogin"
               />
             </div>
+
             <div className="w-full flex justify-center ">
               <label className="rounded" name="password" id="password">
                 {" "}
