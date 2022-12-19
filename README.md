@@ -20,7 +20,7 @@ Os principais serviços são:
 
   O Tailwind CSS é uma framework utility first projetada para permitir que os usuários criem aplicativos com mais rapidez e facilidade.
 
-- ### Deploy [Vercel](https://vercel.com/)
+- ### [Vercel](https://vercel.com/)
   A Vercel é uma plataforma voltada para a hospedagem de aplicações de uma forma bem simples e rápida. Como diz seu próprio site “A Vercel é o melhor lugar para implantar qualquer aplicativo de front-end.”
 
 # INSTALAÇÃO
