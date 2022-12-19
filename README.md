@@ -29,19 +29,16 @@ Os principais serviços são:
 
 ```
  git clone https://github.com/vmc36/webuserapplication.git
-
 ```
 
 2. Instale as dependências necessárias:
 
 ```
  npm install
-
 ```
 
 3. inicie a aplicação
 
 ```
  npm run dev
-
 ```
